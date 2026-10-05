@@ -12,8 +12,8 @@ import (
 	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgxpool"
 
-	"github.com/dunnidev/plimsoll-indexer/internal/coverage"
-	"github.com/dunnidev/plimsoll-indexer/internal/soroban"
+	"github.com/plimsoll-protocol/plimsoll-indexer/internal/coverage"
+	"github.com/plimsoll-protocol/plimsoll-indexer/internal/soroban"
 )
 
 //go:embed schema.sql

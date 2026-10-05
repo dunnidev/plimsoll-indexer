@@ -16,13 +16,13 @@ import (
 	"github.com/stellar/go-stellar-sdk/clients/rpcclient"
 	"github.com/stellar/go-stellar-sdk/keypair"
 
-	"github.com/dunnidev/plimsoll-indexer/internal/api"
-	"github.com/dunnidev/plimsoll-indexer/internal/config"
-	"github.com/dunnidev/plimsoll-indexer/internal/horizon"
-	"github.com/dunnidev/plimsoll-indexer/internal/soroban"
-	"github.com/dunnidev/plimsoll-indexer/internal/stellartoml"
-	"github.com/dunnidev/plimsoll-indexer/internal/store"
-	"github.com/dunnidev/plimsoll-indexer/internal/worker"
+	"github.com/plimsoll-protocol/plimsoll-indexer/internal/api"
+	"github.com/plimsoll-protocol/plimsoll-indexer/internal/config"
+	"github.com/plimsoll-protocol/plimsoll-indexer/internal/horizon"
+	"github.com/plimsoll-protocol/plimsoll-indexer/internal/soroban"
+	"github.com/plimsoll-protocol/plimsoll-indexer/internal/stellartoml"
+	"github.com/plimsoll-protocol/plimsoll-indexer/internal/store"
+	"github.com/plimsoll-protocol/plimsoll-indexer/internal/worker"
 )
 
 func main() {

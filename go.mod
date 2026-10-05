@@ -1,4 +1,4 @@
-module github.com/dunnidev/plimsoll-indexer
+module github.com/plimsoll-protocol/plimsoll-indexer
 
 go 1.27.0
 

@@ -11,8 +11,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/dunnidev/plimsoll-indexer/internal/coverage"
-	"github.com/dunnidev/plimsoll-indexer/internal/store"
+	"github.com/plimsoll-protocol/plimsoll-indexer/internal/coverage"
+	"github.com/plimsoll-protocol/plimsoll-indexer/internal/store"
 )
 
 var now = time.Date(2026, 10, 5, 12, 0, 0, 0, time.UTC)

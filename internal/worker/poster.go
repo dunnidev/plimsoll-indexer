@@ -10,9 +10,9 @@ import (
 	"github.com/stellar/go-stellar-sdk/clients/rpcclient"
 	"github.com/stellar/go-stellar-sdk/xdr"
 
-	"github.com/dunnidev/plimsoll-indexer/internal/horizon"
-	"github.com/dunnidev/plimsoll-indexer/internal/soroban"
-	"github.com/dunnidev/plimsoll-indexer/internal/store"
+	"github.com/plimsoll-protocol/plimsoll-indexer/internal/horizon"
+	"github.com/plimsoll-protocol/plimsoll-indexer/internal/soroban"
+	"github.com/plimsoll-protocol/plimsoll-indexer/internal/store"
 )
 
 // Poster computes each listed asset's supply from Horizon and posts it to the

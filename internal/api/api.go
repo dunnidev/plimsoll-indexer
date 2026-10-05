@@ -11,8 +11,8 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/dunnidev/plimsoll-indexer/internal/coverage"
-	"github.com/dunnidev/plimsoll-indexer/internal/store"
+	"github.com/plimsoll-protocol/plimsoll-indexer/internal/coverage"
+	"github.com/plimsoll-protocol/plimsoll-indexer/internal/store"
 )
 
 // Reader is what the API needs from storage.

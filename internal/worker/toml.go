@@ -7,9 +7,9 @@ import (
 	"log/slog"
 	"time"
 
-	"github.com/dunnidev/plimsoll-indexer/internal/horizon"
-	"github.com/dunnidev/plimsoll-indexer/internal/stellartoml"
-	"github.com/dunnidev/plimsoll-indexer/internal/store"
+	"github.com/plimsoll-protocol/plimsoll-indexer/internal/horizon"
+	"github.com/plimsoll-protocol/plimsoll-indexer/internal/stellartoml"
+	"github.com/plimsoll-protocol/plimsoll-indexer/internal/store"
 )
 
 // TomlSync records what each issuer's stellar.toml says about its asset,

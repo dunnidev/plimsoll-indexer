@@ -9,8 +9,8 @@ import (
 	"github.com/stellar/go-stellar-sdk/clients/rpcclient"
 	protocol "github.com/stellar/go-stellar-sdk/protocols/rpc"
 
-	"github.com/dunnidev/plimsoll-indexer/internal/soroban"
-	"github.com/dunnidev/plimsoll-indexer/internal/store"
+	"github.com/plimsoll-protocol/plimsoll-indexer/internal/soroban"
+	"github.com/plimsoll-protocol/plimsoll-indexer/internal/store"
 )
 
 const (
