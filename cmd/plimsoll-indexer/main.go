@@ -59,6 +59,10 @@ func run(cfg config.Config, log *slog.Logger) error {
 		StartLedger: cfg.StartLedger,
 		Log:         log.With("job", "ingest"),
 	}
+	// Ingest once before the other jobs start, so they see the listed assets.
+	if err := ingester.Run(ctx); err != nil {
+		log.Error("initial ingest failed", "err", err)
+	}
 	go every(ctx, cfg.IngestInterval, log.With("job", "ingest"), ingester.Run)
 
 	tomlSync := &worker.TomlSync{
