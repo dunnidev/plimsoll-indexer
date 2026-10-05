@@ -1,0 +1,42 @@
+# Render blueprint: https://render.com/docs/blueprint-spec
+services:
+  - type: web
+    name: plimsoll-indexer
+    runtime: go
+    region: frankfurt
+    plan: free
+    buildCommand: go build -tags netgo -ldflags "-s -w" -o bin/plimsoll-indexer ./cmd/plimsoll-indexer
+    startCommand: ./bin/plimsoll-indexer
+    healthCheckPath: /healthz
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: plimsoll-db
+          property: connectionString
+      - key: STELLAR_RPC_URL
+        value: https://soroban-testnet.stellar.org
+      - key: HORIZON_URL
+        value: https://horizon-testnet.stellar.org
+      - key: STELLAR_NETWORK_PASSPHRASE
+        value: Test SDF Network ; September 2015
+      - key: COVERAGE_LEDGER_ID
+        value: CC2QQ7R4FLPHZP7KA5AO4IASXXICTG6N4GQXCXITTEBNYQEYTYXKMN4D
+      - key: REPORTER_REGISTRY_ID
+        value: CCZCBR7MGSW5LGIEUQR5TU5Z7JQWBDEESB3RGPTRPMCBUMOISRPY7GOB
+      - key: START_LEDGER
+        value: "5034380"
+      - key: SUPPLY_POSTER_SECRET
+        sync: false
+      - key: POST_INTERVAL
+        value: 15m
+      - key: REPOST_AFTER
+        value: 6h
+      - key: CORS_ORIGINS
+        value: "*"
+
+databases:
+  - name: plimsoll-db
+    region: frankfurt
+    plan: free
+    databaseName: plimsoll
+    user: plimsoll
