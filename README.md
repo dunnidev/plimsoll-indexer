@@ -1,9 +1,9 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/dunnidev/plimsoll-contracts/main/docs/banner.svg" alt="Plimsoll" width="100%" />
+  <img src="https://raw.githubusercontent.com/plimsoll-protocol/plimsoll-contracts/main/docs/banner.svg" alt="Plimsoll" width="100%" />
 </p>
 
 <p align="center">
-  <a href="https://github.com/dunnidev/plimsoll-indexer/actions/workflows/ci.yml"><img src="https://github.com/dunnidev/plimsoll-indexer/actions/workflows/ci.yml/badge.svg" alt="CI" /></a>
+  <a href="https://github.com/plimsoll-protocol/plimsoll-indexer/actions/workflows/ci.yml"><img src="https://github.com/plimsoll-protocol/plimsoll-indexer/actions/workflows/ci.yml/badge.svg" alt="CI" /></a>
   <img src="https://img.shields.io/badge/go-1.27-00ADD8" alt="Go" />
   <img src="https://img.shields.io/badge/postgres-16%2B-336791" alt="Postgres" />
   <img src="https://img.shields.io/badge/license-Apache--2.0-blue" alt="Apache-2.0" />
@@ -11,7 +11,7 @@
 
 # Plimsoll indexer
 
-The off-chain half of [Plimsoll](https://github.com/dunnidev/plimsoll-contracts).
+The off-chain half of [Plimsoll](https://github.com/plimsoll-protocol/plimsoll-contracts).
 One Go binary with three jobs and an HTTP API:
 
 | Job | What it does |
@@ -22,15 +22,15 @@ One Go binary with three jobs and an HTTP API:
 
 | Repo | What it is |
 | --- | --- |
-| [plimsoll-contracts](https://github.com/dunnidev/plimsoll-contracts) | Rust/Soroban contracts |
-| [plimsoll-app](https://github.com/dunnidev/plimsoll-app) | Web app and TypeScript SDK |
+| [plimsoll-contracts](https://github.com/plimsoll-protocol/plimsoll-contracts) | Rust/Soroban contracts |
+| [plimsoll-app](https://github.com/plimsoll-protocol/plimsoll-app) | Web app and TypeScript SDK |
 | **plimsoll-indexer** (this repo) | This service |
 
 ## Maintainers
 
 | Maintainer | GitHub | Contact |
 | --- | --- | --- |
-| dunnidev | [@dunnidev](https://github.com/dunnidev) | [GitHub Discussions](https://github.com/dunnidev/plimsoll-indexer/discussions) |
+| dunnidev | [@dunnidev](https://github.com/dunnidev) | [GitHub Discussions](https://github.com/plimsoll-protocol/plimsoll-indexer/discussions) |
 
 ## Verifiable by design
 
@@ -60,7 +60,7 @@ Coverage in the API uses the same selection and rounding rules as the contract
 Go 1.27+. No Postgres or Docker needed locally:
 
 ```bash
-git clone https://github.com/dunnidev/plimsoll-indexer
+git clone https://github.com/plimsoll-protocol/plimsoll-indexer
 cd plimsoll-indexer
 go run ./cmd/devdb &          # embedded Postgres on :54329
 cp .env.example .env          # defaults point at the testnet deployment
@@ -94,8 +94,8 @@ See [CONTRIBUTING.md](CONTRIBUTING.md). Security: [SECURITY.md](SECURITY.md).
 
 ## Contributors
 
-<a href="https://github.com/dunnidev/plimsoll-indexer/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=dunnidev/plimsoll-indexer" alt="Contributors" />
+<a href="https://github.com/plimsoll-protocol/plimsoll-indexer/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=plimsoll-protocol/plimsoll-indexer" alt="Contributors" />
 </a>
 
 ## License

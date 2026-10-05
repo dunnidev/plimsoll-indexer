@@ -5,7 +5,7 @@ The indexer is unaudited and runs against Stellar testnet.
 ## Reporting
 
 Report privately via
-[Security → Report a vulnerability](https://github.com/dunnidev/plimsoll-indexer/security/advisories/new).
+[Security → Report a vulnerability](https://github.com/plimsoll-protocol/plimsoll-indexer/security/advisories/new).
 Include the component, impact and reproduction steps. No public issues for
 vulnerabilities, please. We aim to respond within 72 hours.
 
