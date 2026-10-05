@@ -1,0 +1,47 @@
+name: Keep alive and check freshness
+
+# Render's free tier sleeps after ~15 idle minutes, which also stops the
+# supply poster. This pings the service often enough to keep it awake, and
+# fails loudly if on-chain supply snapshots go stale.
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: keepalive
+  cancel-in-progress: false
+
+env:
+  INDEXER_URL: https://plimsoll-indexer.onrender.com
+  # Poster reposts every 6h (REPOST_AFTER); allow 2h of slack.
+  MAX_SUPPLY_AGE_SECONDS: "28800"
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Wake and health-check the indexer
+        run: |
+          curl -fsS --max-time 90 --retry 3 --retry-delay 10 --retry-all-errors \
+            "$INDEXER_URL/healthz"
+
+      - name: Fail if any supply snapshot is stale
+        run: |
+          now=$(date +%s)
+          curl -fsS --max-time 60 "$INDEXER_URL/v1/assets" > assets.json
+          jq -r '.assets[] | "\(.code) \(.supply.posted_at // "none")"' assets.json | while read -r code posted; do
+            if [ "$posted" = "none" ]; then
+              echo "::error::$code has no supply snapshot"; exit 1
+            fi
+            age=$(( now - $(date -d "$posted" +%s) ))
+            echo "$code supply age ${age}s"
+            if [ "$age" -gt "$MAX_SUPPLY_AGE_SECONDS" ]; then
+              echo "::error::$code supply snapshot is ${age}s old (limit $MAX_SUPPLY_AGE_SECONDS). Is SUPPLY_POSTER_SECRET set and the poster funded?"
+              exit 1
+            fi
+          done
