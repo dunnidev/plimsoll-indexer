@@ -60,7 +60,14 @@ func (p *Poster) postOne(ctx context.Context, sac, code, issuer string) error {
 	if last != nil {
 		unchanged := last.Amount.Cmp(b.TotalInt()) == 0
 		recent := p.Now().Sub(last.PostedAt) < p.RepostAfter
-		if unchanged && recent {
+		// A snapshot whose breakdown this instance cannot serve (e.g. posted by
+		// another instance) is unverifiable, so replace it with one we can.
+		_, err := p.Store.Breakdown(ctx, last.BreakdownHash)
+		servable := err == nil
+		if err != nil && !errors.Is(err, store.ErrNotFound) {
+			return fmt.Errorf("look up breakdown: %w", err)
+		}
+		if unchanged && recent && servable {
 			return nil
 		}
 		if b.Ledger <= last.Ledger {
