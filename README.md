@@ -6,6 +6,7 @@
   <a href="https://github.com/plimsoll-protocol/plimsoll-indexer/actions/workflows/ci.yml"><img src="https://github.com/plimsoll-protocol/plimsoll-indexer/actions/workflows/ci.yml/badge.svg" alt="CI" /></a>
   <img src="https://img.shields.io/badge/go-1.27-00ADD8" alt="Go" />
   <img src="https://img.shields.io/badge/postgres-16%2B-336791" alt="Postgres" />
+  <a href="https://plimsoll-protocol.gitbook.io/plimsoll-protocol-docs/"><img src="https://img.shields.io/badge/docs-gitbook-0f1d2b" alt="Docs" /></a>
   <img src="https://img.shields.io/badge/license-Apache--2.0-blue" alt="Apache-2.0" />
 </p>
 
@@ -19,6 +20,9 @@ One Go binary with three jobs and an HTTP API:
 | **Supply poster** | For every listed asset, sums Horizon's per-bucket holdings (trustlines in every auth state, claimable balances, liquidity pools, contract balances) and calls `post_supply` on the coverage ledger with the total and the SHA-256 of the breakdown. Posts when supply changes, or every `REPOST_AFTER` so freshness checks keep passing. |
 | **Event ingester** | Reads `asset_listed`, `supply_posted`, `reserve_posted`, `reporter_set` and `reporter_revoked` from Soroban RPC into Postgres, keeping history past RPC's ~7-day retention. |
 | **stellar.toml sync** | Resolves each issuer's `home_domain`, reads its SEP-1 `stellar.toml`, and stores the matching `[[CURRENCIES]]` entry, including `attestation_of_reserve`. |
+
+**Live API:** https://plimsoll-indexer.onrender.com/v1/assets  
+**Docs:** https://plimsoll-protocol.gitbook.io/plimsoll-protocol-docs/
 
 | Repo | What it is |
 | --- | --- |
