@@ -86,6 +86,20 @@ go test ./...
 Every variable is documented in [.env.example](.env.example). Required:
 `DATABASE_URL`, `COVERAGE_LEDGER_ID`, `REPORTER_REGISTRY_ID`.
 
+## Docker
+
+Prefer containers? Build a distroless image and run with Compose (Postgres +
+indexer, testnet defaults):
+
+```bash
+docker compose up --build
+curl localhost:8080/healthz
+```
+
+The image is multi-stage (`golang:1.27-bookworm` → `gcr.io/distroless/static-debian12`)
+and stays well under 30 MB. Leave `SUPPLY_POSTER_SECRET` empty in
+`docker-compose.yml` for a read-only run.
+
 ## Deploying
 
 [render.yaml](render.yaml) defines a Render web service plus a Postgres

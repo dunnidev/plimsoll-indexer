@@ -1,0 +1,40 @@
+# Local stack: Postgres + indexer with the public testnet defaults from .env.example.
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: plimsoll
+      POSTGRES_PASSWORD: plimsoll
+      POSTGRES_DB: plimsoll
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U plimsoll -d plimsoll"]
+      interval: 2s
+      timeout: 5s
+      retries: 15
+    ports:
+      - "54329:5432"
+
+  indexer:
+    build: .
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+    environment:
+      DATABASE_URL: postgres://plimsoll:plimsoll@db:5432/plimsoll?sslmode=disable
+      PORT: "8080"
+      STELLAR_RPC_URL: https://soroban-testnet.stellar.org
+      HORIZON_URL: https://horizon-testnet.stellar.org
+      STELLAR_NETWORK_PASSPHRASE: "Test SDF Network ; September 2015"
+      COVERAGE_LEDGER_ID: CC2QQ7R4FLPHZP7KA5AO4IASXXICTG6N4GQXCXITTEBNYQEYTYXKMN4D
+      REPORTER_REGISTRY_ID: CCZCBR7MGSW5LGIEUQR5TU5Z7JQWBDEESB3RGPTRPMCBUMOISRPY7GOB
+      START_LEDGER: "5034380"
+      # Leave empty for read-only (API + ingest + toml sync only).
+      SUPPLY_POSTER_SECRET: ""
+      INGEST_INTERVAL: 10s
+      POST_INTERVAL: 15m
+      REPOST_AFTER: 6h
+      TOML_INTERVAL: 6h
+      CORS_ORIGINS: "*"
+      LOG_LEVEL: info
