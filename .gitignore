@@ -1,0 +1,7 @@
+.env
+.env.*
+!.env.example
+.devdb/
+.devdb-run.exe
+/bin/
+*.exe
