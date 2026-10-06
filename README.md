@@ -106,6 +106,11 @@ and stays well under 30 MB. Leave `SUPPLY_POSTER_SECRET` empty in
 database in the same region, connected over the internal URL. Set
 `SUPPLY_POSTER_SECRET` in the Render dashboard; it is never committed.
 
+On Render the indexer requests its own `/healthz` every 10 minutes
+(`KEEP_AWAKE_URL`, derived from `RENDER_EXTERNAL_URL`), so the free tier does
+not put it to sleep and supply posting keeps running. One always-on service
+uses about 744 of the free tier's 750 monthly instance hours.
+
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md). Security: [SECURITY.md](SECURITY.md).
