@@ -43,6 +43,16 @@ hashed is served byte-for-byte at `/v1/breakdowns/{hash}`; `sha256` of that
 body equals the `breakdown_hash` in the on-chain `supply_posted` event, and each
 bucket can be recomputed from Horizon's `/assets` endpoint.
 
+### Verifying supply snapshots
+
+Verify an asset's latest supply snapshot against live Horizon balances without needing a local database:
+
+```bash
+go run ./cmd/plimsoll-indexer verify --sac <SAC_ADDRESS> [--indexer http://localhost:8080] [--horizon https://horizon.stellar.org]
+```
+
+The command fetches the asset's snapshot breakdown from the indexer, checks its SHA-256 hash integrity, recomputes balances directly from Horizon, prints a formatted diff table, and exits `0` on match or `1` on mismatch.
+
 ## API
 
 | Method and path | Returns |
