@@ -75,6 +75,21 @@ func run(cfg config.Config, log *slog.Logger) error {
 	// Checks every minute; each asset is refreshed once per TOML_INTERVAL.
 	go every(ctx, time.Minute, log.With("job", "toml"), tomlSync.Run)
 
+	if cfg.KeepAwakeURL != "" {
+		keepAwake := worker.NewKeepAwake(cfg.KeepAwakeURL)
+		kaLog := log.With("job", "keepawake")
+		kaLog.Info("keep-awake enabled", "url", cfg.KeepAwakeURL, "interval", cfg.KeepAwakeInterval)
+		go func() {
+			// Wait one interval first: the HTTP server is not listening yet.
+			select {
+			case <-ctx.Done():
+				return
+			case <-time.After(cfg.KeepAwakeInterval):
+			}
+			every(ctx, cfg.KeepAwakeInterval, kaLog, keepAwake.Run)
+		}()
+	}
+
 	if cfg.PostingEnabled() {
 		signer, err := keypair.ParseFull(cfg.PosterSecret)
 		if err != nil {

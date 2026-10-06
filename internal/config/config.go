@@ -32,6 +32,10 @@ type Config struct {
 	TomlInterval       time.Duration
 	CORSOrigins        []string
 	LogLevel           string
+	// KeepAwakeURL is requested every KeepAwakeInterval so a host that sleeps
+	// idle services (Render's free tier) keeps this one, and its poster, up.
+	KeepAwakeURL      string
+	KeepAwakeInterval time.Duration
 }
 
 // Load reads the environment. Missing required values are reported together.
@@ -46,6 +50,7 @@ func Load() (Config, error) {
 		ReporterRegistryID: os.Getenv("REPORTER_REGISTRY_ID"),
 		PosterSecret:       os.Getenv("SUPPLY_POSTER_SECRET"),
 		LogLevel:           envOr("LOG_LEVEL", "info"),
+		KeepAwakeURL:       keepAwakeURL(os.Getenv("KEEP_AWAKE_URL"), os.Getenv("RENDER_EXTERNAL_URL")),
 	}
 
 	var errs []error
@@ -74,6 +79,7 @@ func Load() (Config, error) {
 		{"POST_INTERVAL", "15m", &c.PostInterval},
 		{"REPOST_AFTER", "6h", &c.RepostAfter},
 		{"TOML_INTERVAL", "6h", &c.TomlInterval},
+		{"KEEP_AWAKE_INTERVAL", "10m", &c.KeepAwakeInterval},
 	}
 	for _, d := range durations {
 		v, err := time.ParseDuration(envOr(d.name, d.def))
@@ -91,6 +97,22 @@ func Load() (Config, error) {
 	}
 
 	return c, errors.Join(errs...)
+}
+
+// keepAwakeURL picks the URL to ping: KEEP_AWAKE_URL if set ("none" turns
+// it off), otherwise Render's RENDER_EXTERNAL_URL plus /healthz, otherwise
+// nothing.
+func keepAwakeURL(explicit, renderExternal string) string {
+	switch {
+	case explicit == "none":
+		return ""
+	case explicit != "":
+		return explicit
+	case renderExternal != "":
+		return strings.TrimRight(renderExternal, "/") + "/healthz"
+	default:
+		return ""
+	}
 }
 
 // PostingEnabled reports whether this instance should post supply snapshots.
