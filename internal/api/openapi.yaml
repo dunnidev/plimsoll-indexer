@@ -3,6 +3,15 @@ info:
   title: Plimsoll Indexer API
   description: OpenAPI 3.1.0 specification for Plimsoll read API over HTTP.
   version: 1.0.0
+  license:
+    name: Apache 2.0
+    identifier: Apache-2.0
+servers:
+  - url: https://plimsoll-indexer.onrender.com
+    description: Hosted testnet API
+  - url: http://localhost:8080
+    description: Local development API
+security: []
 paths:
   /healthz:
     get:
@@ -351,12 +360,10 @@ components:
       type: object
       properties:
         bps:
-          type: integer
-          nullable: true
+          type: [integer, "null"]
           example: 10200
         ratio:
-          type: string
-          nullable: true
+          type: [string, "null"]
           example: "102.00%"
         tier:
           type: string
@@ -421,25 +428,24 @@ components:
           format: date-time
           example: "2026-10-01T00:00:00Z"
         toml:
-          type: object
-          nullable: true
+          type: [object, "null"]
         toml_checked_at:
-          type: string
+          type: [string, "null"]
           format: date-time
-          nullable: true
         toml_error:
-          type: string
-          nullable: true
+          type: [string, "null"]
         supply:
-          $ref: '#/components/schemas/Supply'
-          nullable: true
+          oneOf:
+            - $ref: '#/components/schemas/Supply'
+            - type: "null"
         reports:
           type: object
           additionalProperties:
             $ref: '#/components/schemas/Report'
         coverage:
-          $ref: '#/components/schemas/Coverage'
-          nullable: true
+          oneOf:
+            - $ref: '#/components/schemas/Coverage'
+            - type: "null"
       required:
         - sac
         - code
